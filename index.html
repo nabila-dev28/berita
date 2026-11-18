@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Desk — Berita Terkini Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Host+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--ground:#09090b;--alt:#121215;--text:#faf8f9;--text2:#e5e5e4;--muted:#d6d6d5;--line:#222225;--accent:#e6cb97;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--ground)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ground);color:var(--text);font:400 16px/1.6 "Host Grotesk",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--ground);z-index:20}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--text);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--ground);z-index:10}
+.bar{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{font:500 1.7rem "EB Garamond",Georgia,serif;text-decoration:none}
+nav ul{display:flex;gap:.4rem;list-style:none;margin:0;padding:0}
+nav a{display:block;text-decoration:none;color:var(--text2);font-weight:500;padding:.45rem 1.1rem;border-radius:9999px;border:1px solid transparent}
+nav a:hover{color:var(--text)}
+nav a[aria-current="page"]{color:var(--text);border-color:#3a3a3f}
+.menu{display:none;background:none;border:1px solid #3a3a3f;color:var(--text);border-radius:9999px;min-height:42px;padding:0 1.1rem;font:500 1rem "Host Grotesk",sans-serif;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 1.6rem;border-radius:9999px;font:600 1rem "Host Grotesk",sans-serif;text-decoration:none;border:1px solid transparent;transition:background .15s,border-color .15s}
+.btn.pri{background:#fff;color:#040404}.btn.pri:hover{background:#e5e5e4}
+.btn.sec{border-color:#3a3a3f}.btn.sec:hover{border-color:var(--text)}
+.page{display:none}.page.on{display:block}
+.hero{padding:128px 0 85px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center}
+h1{font:500 70px/1.02 "EB Garamond",Georgia,serif;letter-spacing:-.02em;margin:0 0 1.4rem}
+h1 em{font-style:italic}
+.lede{font-size:1.15rem;color:var(--text2);max-width:46ch;margin:0 0 2rem}
+.actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.frame{background:var(--alt);border:1px solid var(--line);border-radius:12px;box-shadow:0 30px 60px -20px rgba(0,0,0,.8);overflow:hidden}
+.chrome{display:flex;align-items:center;gap:.5rem;padding:.7rem 1rem;border-bottom:1px solid var(--line);background:#0e0e11}
+.dot{width:10px;height:10px;border-radius:50%;background:#34343a}
+.url{margin-left:.8rem;flex:1;background:#17171b;border-radius:9999px;padding:.25rem .9rem;color:var(--muted);font-size:.8rem}
+.screen{padding:1.2rem}
+.art{background:#17171b;border-radius:8px;color:#cfcfd2;display:block;width:100%}
+.hero .art{height:280px}
+.chip{display:inline-block;background:rgba(230,203,151,.14);color:var(--accent);border-radius:9999px;padding:.1rem .7rem;font-size:.78rem;font-weight:600}
+.screen h2{font:500 1.9rem/1.1 "EB Garamond",Georgia,serif;margin:.8rem 0 .3rem}
+.screen p{margin:0;color:var(--text2);font-size:.95rem}
+.stories{padding:0 0 85px}
+.stories>h2,.tips h2{font:500 2.6rem/1.1 "EB Garamond",Georgia,serif;margin:0 0 2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.card{background:var(--alt);border:1px solid var(--line);border-radius:8px;padding:.9rem;box-shadow:0 14px 30px -14px rgba(0,0,0,.85)}
+.card .art{height:140px;margin-bottom:.9rem}
+.card h3{font:500 1.45rem/1.15 "EB Garamond",Georgia,serif;margin:.5rem 0 .4rem}
+.card p{margin:0 0 .4rem;color:var(--text2);font-size:.97rem}
+.tips{padding:0 0 128px}
+.tips ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.tips li{background:var(--alt);border:1px solid var(--line);border-radius:8px;padding:1.2rem;color:var(--text2)}
+.tips li strong{display:block;color:var(--text);font:500 1.2rem/1.25 "EB Garamond",Georgia,serif;margin-bottom:.3rem}
+.tips li p{margin:.35rem 0 0;font-size:.95rem}
+.banner{background:#efedef;color:#040404;padding:85px 0}
+.banner .wrap{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.banner h2{font:500 clamp(2rem,4.4vw,3.2rem)/1.05 "EB Garamond",Georgia,serif;margin:0;max-width:20ch}
+.banner h2 em{font-style:italic}
+.banner .btn.pri{background:#040404;color:#faf8f9}.banner .btn.pri:hover{background:#26262b}
+.banner .btn.sec{border-color:#6a6a70;color:#040404}.banner .btn.sec:hover{border-color:#040404}
+footer{padding:48px 0;color:var(--muted);font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.l{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.a{fill:var(--accent);stroke:none}
+a.headline{color:inherit;text-decoration:none}
+a.headline:hover{text-decoration:underline;text-underline-offset:4px}
+.meta{display:block;margin-top:.55rem;color:var(--muted);font-size:.8rem;letter-spacing:.01em}
+.screen .meta{margin-top:.9rem}
+@media (max-width:960px){
+.hero{grid-template-columns:1fr;padding:85px 0 64px;gap:48px}
+h1{font-size:53px}
+.hero .art{height:220px}
+.menu{display:inline-flex;align-items:center}
+nav{position:absolute;left:0;right:0;top:76px;background:var(--ground);border-bottom:1px solid var(--line);display:none}
+nav.open{display:block}
+nav ul{flex-direction:column;gap:0;padding:.5rem 24px 1rem}
+.tips{padding-bottom:85px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="capitol" viewBox="0 0 160 100"><path class="l" d="M20 90h120M30 90V52h100v38M40 52v-8h80v8M45 52v38M65 52v38M95 52v38M115 52v38"/><path class="a" d="M60 44a20 20 0 0 1 40 0z"/><path class="l" d="M80 24V12"/></symbol>
+<symbol id="plane" viewBox="0 0 160 100"><path class="l" d="M20 60l120-30-30 50-25-14-15 14-5-20z"/><path class="a" d="M85 66l25-26-45 20z"/></symbol>
+<symbol id="cabinet" viewBox="0 0 160 100"><rect class="l" x="25" y="58" width="110" height="14" rx="7"/><circle class="l" cx="45" cy="38" r="10"/><circle class="a" cx="80" cy="34" r="12"/><circle class="l" cx="115" cy="38" r="10"/></symbol>
+<symbol id="speech" viewBox="0 0 160 100"><path class="l" d="M55 90l8-40h34l8 40z"/><path class="l" d="M80 50V32"/><circle class="a" cx="80" cy="24" r="8"/><path class="l" d="M100 18a16 16 0 0 1 0 14M110 12a26 26 0 0 1 0 26"/></symbol>
+<symbol id="quake" viewBox="0 0 160 100"><path class="l" d="M10 55h30l10 15 15-30 15 40 15-35 15 25h40"/><path class="a" d="M10 82h140v10H10z" opacity=".6"/></symbol>
+<symbol id="flood" viewBox="0 0 160 100"><path class="l" d="M55 52V34l25-18 25 18v18z"/><rect class="a" x="74" y="36" width="12" height="16"/><path class="l" d="M10 62q10-9 20 0t20 0 20 0 20 0 20 0 20 0 20 0M10 80q10-9 20 0t20 0 20 0 20 0 20 0 20 0 20 0"/></symbol>
+<symbol id="volcano" viewBox="0 0 160 100"><path class="l" d="M25 90l45-58h20l45 58z"/><path class="a" d="M70 32h20l-10 20z"/><circle class="l" cx="72" cy="18" r="6"/><circle class="l" cx="92" cy="10" r="8"/></symbol>
+<symbol id="aid" viewBox="0 0 160 100"><rect class="l" x="35" y="30" width="90" height="58" rx="6"/><rect class="a" x="74" y="42" width="12" height="34"/><rect class="a" x="63" y="53" width="34" height="12"/></symbol>
+<symbol id="outbreak" viewBox="0 0 160 100"><circle class="l" cx="80" cy="50" r="22"/><circle cx="80" cy="50" r="32" fill="none" stroke="currentColor" stroke-width="6" stroke-dasharray="3 12" stroke-linecap="round"/><circle class="a" cx="80" cy="50" r="9"/></symbol>
+<symbol id="research" viewBox="0 0 160 100"><path class="l" d="M63 12h34M69 12v32L44 88h72L91 44V12"/><path class="a" d="M55 70h50l10 18H45z"/></symbol>
+<symbol id="food" viewBox="0 0 160 100"><path class="l" d="M80 38c-20-12-40 5-30 30s25 22 30 18c5 4 20 7 30-18s-10-42-30-30z"/><path class="a" d="M80 36c0-14 8-20 20-22-1 12-8 20-20 22z"/></symbol>
+<symbol id="mind" viewBox="0 0 160 100"><path class="l" d="M95 15a38 38 0 1 0 35 58A42 42 0 0 1 95 15z"/><circle class="a" cx="120" cy="26" r="4"/><circle class="a" cx="136" cy="44" r="3"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#presiden">Signal Desk</a>
+    <nav id="nav" aria-label="Navigasi utama"><ul>
+      <li><a href="#presiden" data-p="presiden">Presiden</a></li>
+      <li><a href="#bencana" data-p="bencana">Bencana</a></li>
+      <li><a href="#kesehatan" data-p="kesehatan">Kesehatan</a></li>
+    </ul></nav>
+    <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main class="wrap">
+<section class="page" id="presiden">
+  <div class="hero">
+    <div>
+      <h1>Kabar pemerintahan, <em>dijelaskan jelas.</em></h1>
+      <p class="lede">Keputusan Presiden, proses di MPR, dan RUU yang sedang dibahas — lengkap dengan konteks di balik setiap cerita.</p>
+      <div class="actions"><a class="btn pri" href="#bencana">Bencana</a><a class="btn sec" href="#kesehatan">Kesehatan</a></div>
+    </div>
+    <div class="frame"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">signaldesk.news/presiden</span></div>
+      <div class="screen"><img class="art" src="kelompok 1 berita/jokowidodo.jpeg" alt="podium">
+      <span class="chip" style="margin-top:.9rem">Top story</span>
+      <h2><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/09433191/sepekan-yang-riuh-satu-keputusan-bersejarah" target="_blank" rel="noopener">Gibran Mengundurkan Diri, Kursi Wapres Berganti</a></h2>
+      <p>Presiden Prabowo melepas Wakil Presiden Gibran Rakabuming Raka di Istana Merdeka, Kamis (12/11/2026), sebelum Gibran mengundurkan diri ke MPR. Pemilihan wapres baru kemudian diproses melalui MPR.</p>
+      <span class="meta">Kompas.com · 16 Nov 2026, 09:43 WIB</span></div></div>
+  </div>
+  <div class="stories"><h2>Terbaru dari Istana dan MPR</h2><div class="grid">
+    <div class="card"><img class="art" src="ubir Gerindra Soal Kriteria Wapres.jpg" chip >Wapres</img><h3><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/11230381/jubir-gerindra-soal-kriteria-wapres-pengganti-gibran-harus-taat-dan-loyal" target="_blank" rel="noopener">Tiga Kriteria Wapres Pengganti Gibran Versi Gerindra</a></h3><p>Jubir Gerindra Bahtra Banong menyebut tiga syarat: taat dan loyal kepada Presiden, mampu bekerja sama, dan tidak menjadi beban.</p><span class="meta">Kompas.com · 16 Nov 2026, 11:23 WIB</span></div>
+    <div class="card"><img class="art" src="Respons Gerindra soal Kadernya Didukung Koalisi Jadi Cawapres Prabowo.jpg"span class="chip>Koalisi/img>h3>a class="headline href="https://nasional.kompas.com/read/2026/11/16/11204461/respons-gerindra-soal-kadernya-didukung-koalisi-jadi-cawapres-prabowo" target="_blank" rel="noopener">Koalisi Serahkan Hak Usulan Cawapres kepada Prabowo</a></h3><p>PAN, Golkar, dan Demokrat menyatakan menghormati kewenangan Presiden dan MPR dalam menentukan nomor cawapres.</p><span class="meta">Kompas.com · 16 Nov 2026, 11:20 WIB</span></div>
+    <div class="card"><img class="art" src="Komisi III DPR Mulai Bahas RUU Penyadapan Hari Ini.jpg" span class="chip">DPR</img><h3><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/08514701/komisi-iii-dpr-mulai-bahas-ruu-penyadapan-hari-ini" target="_blank" rel="noopener">Komisi III DPR Mulai Bahas RUU Penyadapan</a></h3><p>Baintelkam Polri menilai RUU ini dibutuhkan demi kepastian hukum, bukan sekadar untuk keperluan penyidikan.</p><span class="meta">Kompas.com · 16 Nov 2026</span></div>
+    <div class="card"><img class="art" src="Prabowo Hadiri KTT Ke-29 ASEAN.jpeg" span class="chip">ASEAN</img><h3><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/09584551/prabowo-hadiri-ktt-ke-29-asean-china-kenakan-setelan-abu-abu" target="_blank" rel="noopener">Prabowo Hadiri KTT ke-29 ASEAN–China</a></h3><p>Presiden hadir dengan setelan abu-abu. Di sidelines KTT ia meminta maaf atas kabut asap Indonesia yang mengganggu Singapura dan Malaysia.</p><span class="meta">Kompas.com · 16 Nov 2026, 09:58 WIB</span></div>
+  </div></div>
+  <div class="tips"><h2>Sorotan lain</h2><ul>
+    <li><strong><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/10561401/penguji-uu-llaj-ke-mk-keterbatasan-anggaran-tak-boleh-jadi-alasan-biarkan" target="_blank" rel="noopener">UU LLAJ Digugat ke Mahkamah Konstitusi</a></strong><p>Penguji menilai keterbatasan anggaran tak boleh dijadikan alasan membiarkan jalan rusak.</p><span class="meta">Kompas.com · 16 Nov 2026, 10:56 WIB</span></li>
+    <li><strong><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/11591831/kasasi-eks-sekretaris-ma-nurhadi-ditolak-tetap-dihukum-5-tahun-penjara" target="_blank" rel="noopener">Kasasi Eks Sekretaris MA Nurhadi Ditolak</a></strong><p>Mahkamah Agung menolak kasasi; Nurhadi tetap dihukum lima tahun pidana.</p><span class="meta">Kompas.com · 16 Nov 2026, 11:59 WIB</span></li>
+    <li><strong><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/11584961/jubir-pdi-p-tegaskan-tidak-cawe-cawe-usung-nama-cawapres-pengganti-gibran" target="_blank" rel="noopener">PDI-P: Tidak Cawe-cawe Usung Nama Cawapres</a></strong><p>Jubir PDI-P menyatakan menghormati proses di MPR dan tidak menyebut nama sebelum waktunya.</p><span class="meta">Kompas.com · 16 Nov 2026, 11:58 WIB</span></li>
+  </ul></div>
+</section>
+  
+<section class="page" id="bencana">
+  <div class="hero">
+    <div>
+      <h1>Bencana alam, <em>dan langkah berikutnya.</em></h1>
+      <p class="lede">Karhutla, erupsi gunung, cuaca ekstrem, dan banjir: apa yang terjadi, siapa yang terdampak, serta apa yang perlu disiapkan.</p>
+      <div class="actions"><a class="btn pri" href="#presiden">Presiden</a><a class="btn sec" href="#kesehatan">Kesehatan</a></div>
+    </div>
+    <div class="frame"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">signaldesk.news/bencana</span></div>
+      <div class="screen"><img class="art" src="kelompok 1 berita/karhutla.jpeg" alt="podium">
+      <h2><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/11251691/bnpb-ungkap-25489-hektare-lahan-di-kalteng-masih-dilanda-karhutla" target="_blank" rel="noopener">Karhutla Kalteng Tersisa 254,89 Hektare</a></h2>
+      <p>BNPB masih menangani kebakaran hutan dan lahan di Kalimantan Tengah sampai 14 November: tersisa 254,89 hektar pada 21 titik api, dari semula 272,09 hektar pada 26 titik api.</p>
+      <span class="meta">Kompas.com · 16 Nov 2026, 11:25 WIB</span></div></div>
+  </div>
+  <div class="stories"><h2>Peringatan terbaru</h2><div class="grid">
+    <div class="card"><img class="art" src="erupsi.jpg" class="chip">erupsi</span><h3><a class="headline" href="https://nasional.kompas.com/read/2026/11/16/10464521/gunung-ibu-erupsi-lagi-bnpb-ingatkan-masyarakat-tak-terpancing-hoaks" target="_blank" rel="noopener">Gunung Ibu Erupsi Lagi, BNPB Ingatkan Jangan Terpancing Hoaks</a></h3><p>Kolom abu teramati 500 meter di atas kawah, atau sekitar 1.825 meter di atas permukaan laut. Tingkat aktivitas masih Level II atau Waspada.</p><span class="meta">Kompas.com · 16 Nov 2026, 10:46 WIB</span></div>
+    <div class="card"><img class="art" src="cuaca ekstrem.jpeg" span class="chip">Cuaca ekstrem</img><h3><a class="headline" href="https://nasional.kompas.com/read/2026/11/15/14220081/bmkg-peringatkan-cuaca-ekstrem-di-aceh-kasatgas-tito-minta-pemda-perkuat" target="_blank" rel="noopener">BMKG Peringatkan Cuaca Ekstrem di Aceh</a></h3><p>Mendagri Tito Karnavian meminta pemerintah daerah memperkuat kesiapsiagaan, termasuk menyiapkan logistik dan fasilitas kesehatan.</p><span class="meta">Kompas.com · 15 Nov 2026, 14:22 WIB</span></div>
+    <div class="card"><img class="art" src="hujan.jpg" span class="chip">Hujan lebat</img><h3><a class="headline" href="https://www.kompas.com/tren/read/2026/11/16/113000765/daftar-wilayah-berpotensi-hujan-lebat-besok-17-november-2026-ada-jakarta" target="_blank" rel="noopener">Hujan Lebat Diprediksi Besok di 27 Provinsi</a></h3><p>BMKG memprakirakan hujan sedang hingga lebat di Aceh, Sumatera Utara, Banten, DKI Jakarta, Jawa Barat, DI Yogyakarta, Jawa Timur, dan lainnya.</p><span class="meta">Kompas.com · 16 Nov 2026, 11:30 WIB</span></div>
+    <div class="card"><img class="art" src="karhutla.jpg" class="chip">Karhutla/<img><h3><a class="headline" href="https://nasional.kompas.com/read/2026/11/15/21261311/prabowo-di-ktt-asean-104-perusahaan-diselidiki-soal-karhutla-11-sudah" target="_blank" rel="noopener">104 Perusahaan Diselidiki Soal Karhutla</a></img><p>Di KTT ASEAN, Presiden menyebut 104 perusahaan diselidiki dan 11 di antaranya sudah didakwa terkait kebakaran hutan dan lahan.</p><span class="meta">Kompas.com · 15 Nov 2026</span></div>
+  </div></div>
+  <div class="tips"><h2>Sorotan lain</h2><ul>
+    <li><strong><a class="headline" href="https://www.kompas.com/tren/read/2026/11/15/060000765/hujan-lebat-hingga-sangat-lebat-berpotensi-guyur-sejumlah-wilayah-hingga-19" target="_blank" rel="noopener">Hujan Lebat Berlanjut hingga 19 November</a></strong><p>BMKG memprakirakan hujan lebat hingga sangat lebat masih mengguyur sejumlah wilayah sampai 19 November, seiring peralihan menuju musim hujan.</p><span class="meta">Kompas.com · 15 Nov 2026</span></li>
+    <li><strong><a class="headline" href="https://nasional.kompas.com/read/2026/11/15/14564021/bnpb-588-rumah-rusak-akibat-cuaca-ekstrem-di-bandung-barat" target="_blank" rel="noopener">588 Rumah Rusak di Bandung Barat</a></strong><p>BNPB mencatat 588 rumah rusak akibat cuaca ekstrem di Bandung Barat.</p><span class="meta">Kompas.com · 15 Nov 2026</span></li>
+    <li><strong><a class="headline" href="https://www.kompas.com/tren/read/2026/11/15/143000165/ada-2-bibit-siklon-tropis-di-wilayah-indonesia-bmkg-peringatkan-dampaknya" target="_blank" rel="noopener">Dua Bibit Siklon Tropis terpantau di wilayah Indonesia</a></strong><p>BMKG memperingatkan dampaknya: 92B di Teluk Benggala dan 96S di Samudra Hindia barat Sumatera.</p><span class="meta">Kompas.com · 15 Nov 2026</span></li>
+  </ul></div>
+</section>
+
+<section class="page" id="kesehatan">
+  <div class="hero">
+    <div>
+      <h1>Berita kesehatan, <em>yang bisa langsung dipakai.</em></h1>
+      <p class="lede">Riset, pembaruan layanan kesehatan, dan panduan kesehatan sehari-hari, dijelaskan dengan bahasa yang mudah dipahami.</p>
+      <div class="actions"><a class="btn pri" href="#presiden">Presiden</a><a class="btn sec" href="#bencana">Bencana</a></div>
+    </div>
+    <div class="frame"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">signaldesk.news/kesehatan</span></div>
+      <div class="screen"><img class="art" src="kelompok 1 berita/gigi.png" alt="gigi">
+      <span class="chip" style="margin-top:.9rem">Featured</span>
+      <h2><a class="headline" href="https://health.kompas.com/read/26K15184916668/gigi-berlubang-masih-jadi-masalah-banyak-pasien-dokter-jelaskan-perawatan-dan" target="_blank" rel="noopener">Gigi Berlubang Masih Jadi Masalah Banyak Pasien</a></h2>
+      <p>Dokter menjelaskan perawatan yang tepat dan langkah pencesannya, mulai dari kebiasaan menyikat gigi secara rutin.</p>
+      <span class="meta">Kompas.com · 15 Nov 2026, 18:49 WIB</span></div></div>
+  </div>
+  <div class="stories"><h2>Terbaru dari kesehatan</h2><div class="grid">
+    <div class="card"><img class="art" src="inveksi.png" chip>Infeksi</img><h3><a class="headline" href="https://health.kompas.com/read/26K16110300668/bukan-cuma-bayi-lansia-di-atas-70-tahun-juga-rentan-infeksi-rsv" target="_blank" rel="noopener">Lansia di Atas 70 Tahun Juga Rentan Infeksi RSV</a></h3><p>Pencegahan tidak boleh hanya menyasar bayi; kelompok usia lanjut termasuk yang rentan terhadap infeksi saluran napas.</p><span class="meta">Kompas.com · 16 Nov 2026, 11:03 WIB</span></div>
+    <div class="card"><img class="art" src="gagal ginjal.jpg"chip >Gagal ginjal</img><h3><a class="headline" href="https://health.kompas.com/read/26K16101800568/kenapa-pasien-gagal-ginjal-harus-membatasi-minum-air-putih-" target="_blank" rel="noopener">Pasien Gagal Ginjal Harus Membatasi Minum Air Putih</a></h3><p>Dokter menjelaskan kenapa pasien dengan ginjal yang tidak berfungsi optimal perlu mengatur jumlah cairan, bukan justru menambahnya.</p><span class="meta">Kompas.com · 16 Nov 2026, 10:18 WIB</span></div>
+    <div class="card"><img class="art" src="psikolog.jpeg"chip>Mental</img><h3><a class="headline" href="https://lifestyle.kompas.com/read/2026/11/16/080500420/jangan-tunggu-kehabisan-energi-psikolog-bagikan-3-cara-cegah-burnout" target="_blank" rel="noopener">Psikolog Bagikan 3 Cara Cegah Burnout</a></h3><p>Jangan tunggu kehabisan energi. Psikolog menjelaskan cara mencegah kelelahan menumpuk sebelum menjadi burnout.</p><span class="meta">Kompas.com · 16 Nov 2026, 08:05 WIB</span></div>
+    <div class="card"><img class="art" src="ideologi kesehatan pancasila.jpeg" chip>Kebijakan</img><h3><a class="headline" href="https://health.kompas.com/read/26K16093500768/ihdc-meluncurkan-ideologi-kesehatan-pancasila-ini-gagasan-utamanya" target="_blank" rel="noopener">IHDC Meluncurkan Ideologi Kesehatan Pancasila</a></h3><p>IHDC memperkenalkan gagasan itu sebagai rujukan bersama bagi arah kebijakan kesehatan nasional.</p><span class="meta">Kompas.com · 16 Nov 2026, 09:35 WIB</span></div>
+  </div></div>
+  <div class="tips"><h2>Sorotan lain</h2><ul>
+    <li><strong><a class="headline" href="https://health.kompas.com/read/26K16083000968/mitos-atau-fakta-diabetes-diturunkan-silang-dari-ayah-dan-ibu-ini-kata-dokter" target="_blank" rel="noopener">Mitos atau Fakta, Diabetes Diturunkan Silang?</a></strong><p>Dokter membahas risiko diabetes pada keturunan pertama dan faktor yang benar-benar berperan di dalamnya.</p><span class="meta">Kompas.com · 16 Nov 2026, 08:30 WIB</span></li>
+    <li><strong><a class="headline" href="https://health.kompas.com/read/26K14113000268/kemenkes-siapkan-aturan-baru-klinik-kopdes-merah-putih-ini-perubahan-skemanya" target="_blank" rel="noopener">Kemenkes Siapkan Aturan Baru Klinik Kopdes Merah Putih</a></strong><p>Kemenkes sedang menyiapkan perubahan skema layanan pada Klinik Kopdes Merah Putih.</p><span class="meta">Kompas.com · 14 Nov 2026, 11:30 WIB</span></li>
+    <li><strong><a class="headline" href="https://health.kompas.com/read/26K16101500368/bukan-cuma-bikin-berat-badan-naik-lemak-berlebih-juga-bisa-picu-diabetes" target="_blank" rel="noopener">Lemak Berlebih Juga Bisa Picu Diabetes</a></strong><p>Berat badan bukan satu-satunya penanda risiko diabetes; komposisi lemak tubuh juga berperan.</p><span class="meta">Kompas.com · 16 Nov 2026, 10:15 WIB</span></li>
+  </ul></div>
+</section>
+</main>
+
+<section class="banner"><div class="wrap">
+  <h2>Tiga desk, <em>satu ringkasan harian.</em></h2>
+  <div class="actions"><a class="btn pri" href="#presiden">Mulai membaca</a><a class="btn sec" href="#kesehatan">Lihat semua desk</a></div>
+</div></section>
+<footer><div class="wrap"><span>© Signal Desk</span><span>Diperbarui 16 November 2026 · Sumber: Kompas.com</span><span>Ringkasan berita, bukan pengganti artikel asli.</span></div></footer>
+
+<script>
+(function(){
+  var pages=["presiden","bencana","kesehatan"],names={presiden:"Presiden",bencana:"Bencana",kesehatan:"Kesehatan"};
+  var b=document.getElementById("menu"),n=document.getElementById("nav");
+  function show(){
+    var h=(location.hash||"").replace("#","");
+    if(pages.indexOf(h)<0)h="presiden";
+    pages.forEach(function(p){document.getElementById(p).classList.toggle("on",p===h)});
+    document.querySelectorAll("nav a").forEach(function(a){
+      if(a.dataset.p===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+    });
+    document.title="Signal Desk – "+names[h];
+    n.classList.remove("open");b.setAttribute("aria-expanded","false");
+    window.scrollTo(0,0);
+  }
+  b.addEventListener("click",function(){var o=n.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false")});
+  window.addEventListener("hashchange",show);show();
+})();
+</script>
+</body>
+</html>
